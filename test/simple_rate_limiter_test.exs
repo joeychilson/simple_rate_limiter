@@ -28,4 +28,11 @@ defmodule SimpleRateLimiterTest do
     assert :ok == SimpleRateLimiter.can_proceed?(context[:pid])
     assert {:error, :rate_limit_exceeded, remaining_time: _} = SimpleRateLimiter.can_proceed?(context[:pid])
   end
+
+  test "waits and proceeds when rate limit is exceeded", context do
+    action_fun = fn -> :ok end
+    assert :ok == SimpleRateLimiter.wait_and_proceed(context[:pid], action_fun)
+    assert :ok == SimpleRateLimiter.wait_and_proceed(context[:pid], action_fun)
+    assert :ok == SimpleRateLimiter.wait_and_proceed(context[:pid], action_fun)
+  end
 end

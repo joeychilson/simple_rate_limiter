@@ -65,4 +65,22 @@ defmodule SimpleRateLimiter do
       {:reply, {:error, :rate_limit_exceeded, remaining_time: remaining_time}, state}
     end
   end
+
+  @doc """
+    Waits until an action can proceed, then calls the given function.
+
+    ## Example
+
+        iex> SimpleRateLimiter.wait_and_proceed(pid, fn -> IO.puts("Hello!") end)
+        Hello!
+  """
+  def wait_and_proceed(server \\ __MODULE__, action_fun) when is_function(action_fun, 0) do
+    case can_proceed?(server) do
+      :ok ->
+        action_fun.()
+      {:error, :rate_limit_exceeded, remaining_time: remaining_time} ->
+        :timer.sleep(remaining_time)
+        wait_and_proceed(server, action_fun)
+    end
+  end
 end
