@@ -2,7 +2,7 @@ defmodule SimpleRateLimiter.MixProject do
   use Mix.Project
 
   @version "0.1.0"
-  @description "SimpleRateLimiter is a simple rate limiter for Elixir that allows you to limit the number of actions per period of time."
+  @description "A simple rate limiter for Elixir."
 
   def project do
     [
@@ -24,7 +24,7 @@ defmodule SimpleRateLimiter.MixProject do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.24", only: :docs}
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
   end
 

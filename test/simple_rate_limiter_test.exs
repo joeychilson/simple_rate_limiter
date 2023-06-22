@@ -22,8 +22,10 @@ defmodule SimpleRateLimiterTest do
     assert :ok == SimpleRateLimiter.can_proceed?(context[:pid])
     assert {:error, :rate_limit_exceeded, remaining_time: _} = SimpleRateLimiter.can_proceed?(context[:pid])
 
-    :timer.sleep(1_000)
+    :timer.sleep(2_000)
 
     assert :ok == SimpleRateLimiter.can_proceed?(context[:pid])
+    assert :ok == SimpleRateLimiter.can_proceed?(context[:pid])
+    assert {:error, :rate_limit_exceeded, remaining_time: _} = SimpleRateLimiter.can_proceed?(context[:pid])
   end
 end
