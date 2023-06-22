@@ -1,4 +1,4 @@
-defmodule RateLimiter do
+defmodule SimpleRateLimiter do
   @moduledoc """
   A GenServer module that implements token bucket rate limiting.
 
@@ -6,7 +6,7 @@ defmodule RateLimiter do
   refill interval in milliseconds. The token bucket is initially filled to
   the maximum.
 
-  To check if an action can proceed, call `RateLimiter.can_proceed?/1`.
+  To check if an action can proceed, call `SimpleRateLimiter.can_proceed?/1`.
   It will return `:ok` if there are tokens available, and decrement the
   token count by 1. If there are no tokens available, it will return an
   error tuple with the amount of time remaining until the next token is
@@ -24,7 +24,7 @@ defmodule RateLimiter do
 
     ## Example
 
-        iex> {:ok, pid} = RateLimiter.start_link(interval: 1_000, max: 10)
+        iex> {:ok, pid} = SimpleRateLimiter.start_link(interval: 1_000, max: 10)
   """
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
@@ -42,7 +42,7 @@ defmodule RateLimiter do
 
     ## Example
 
-        iex> RateLimiter.can_proceed?(pid)
+        iex> SimpleRateLimiter.can_proceed?(pid)
         :ok
   """
   def can_proceed?(server \\ __MODULE__) do
