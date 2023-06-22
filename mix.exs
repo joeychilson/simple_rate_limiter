@@ -1,27 +1,38 @@
 defmodule SimpleRateLimiter.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+  @description "SimpleRateLimiter is a simple rate limiter for Elixir that allows you to limit the number of actions per period of time."
+
   def project do
     [
       app: :simple_rate_limiter,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      description: @description,
+      deps: deps(),
+      package: package(),
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger]
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.24", only: :dev}
+      {:ex_doc, "~> 0.24", only: :docs}
+    ]
+  end
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/joeychilson/simple_rate_limiter"},
+      maintainers: ["Joey Chilson"]
     ]
   end
 end
