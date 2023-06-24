@@ -17,14 +17,14 @@ defmodule SimpleRateLimiter do
   @doc """
   Starts the rate limiter.
 
-    ## Options
+  ## Options
 
     - `:interval`: The refill interval in milliseconds (default `1_000`).
     - `:max`: The maximum number of tokens (default `10`).
 
-    ## Example
+  ## Example
 
-        iex> {:ok, pid} = SimpleRateLimiter.start_link(interval: 1_000, max: 10)
+      iex> {:ok, pid} = SimpleRateLimiter.start_link(interval: 1_000, max: 10)
   """
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
@@ -40,10 +40,10 @@ defmodule SimpleRateLimiter do
   @doc """
     Checks if an action can proceed by trying to consume a token.
 
-    ## Example
+  ## Example
 
-        iex> SimpleRateLimiter.can_proceed?(pid)
-        :ok
+      iex> SimpleRateLimiter.can_proceed?(pid)
+      :ok
   """
   def can_proceed?(server \\ __MODULE__) do
     GenServer.call(server, :can_proceed?)
@@ -69,10 +69,10 @@ defmodule SimpleRateLimiter do
   @doc """
     Waits until an action can proceed, then calls the given function.
 
-    ## Example
+  ## Example
 
-        iex> SimpleRateLimiter.wait_and_proceed(pid, fn -> IO.puts("Hello!") end)
-        Hello!
+      iex> SimpleRateLimiter.wait_and_proceed(pid, fn -> IO.puts("Hello!") end)
+      Hello!
   """
   def wait_and_proceed(server \\ __MODULE__, action_fun) when is_function(action_fun, 0) do
     case can_proceed?(server) do
