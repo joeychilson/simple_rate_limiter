@@ -9,7 +9,7 @@
 ```elixir
 def deps do
   [
-    {:simple_rate_limiter, "~> 0.1.0"}
+    {:simple_rate_limiter, "~> 0.2.1"}
   ]
 end
 ```
